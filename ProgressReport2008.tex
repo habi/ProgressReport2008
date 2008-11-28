@@ -71,25 +71,25 @@
 {$LastChangedDate$}
 {$LastChangedRevision$}
 {$LastChangedBy$}
-\svnid{$Id$} 
+\svnid{$Id$}
 
 \pagestyle{fancy}
-%%
-\cfoot{}
-\rfoot{}
-%%
-\fancyhead{}
-\fancyfoot{}
-\fancyhead[RO]{{\footnotesize\rightmark}}
-\fancyfoot[RO]{\thepage}
-\fancyhead[LE]{{\footnotesize\leftmark}}
-\fancyfoot[LE]{\thepage}
-%svn-info in footer, page in header
-\fancyfoot[LE]{\tiny{URL: \url{\svnkw{HeadURL}} ; \space Last changed on: \svndate ; \space Revision: \svnrev ; \space Author: \svnFullAuthor*{\svnauthor}}}
-\fancyfoot[RO]{\tiny{URL: \url{\svnkw{HeadURL}} ; \space Last changed on: \svndate ; \space Revision: \svnrev ; \space Author: \svnFullAuthor*{\svnauthor}}}
-\fancyhead[C]{page \thepage}
-%svn-info in footer, page in header
-\renewcommand{\headrulewidth}{0.3pt}
+%%%
+%\cfoot{}
+%\rfoot{}
+%%%
+%\fancyhead{}
+%\fancyfoot{}
+%\fancyhead[RO]{{\footnotesize\rightmark}}
+%\fancyfoot[RO]{\thepage}
+%\fancyhead[LE]{{\footnotesize\leftmark}}
+%\fancyfoot[LE]{\thepage}
+%%svn-info in footer, page in header
+\fancyfoot[C]{\tiny{URL: \url{\svnkw{HeadURL}} ; \space Last changed on: \svnkw{LastChangedDate} ; \space Revision: \svnkw{LastChangedRevision} ; \space Author: \svnkw{LastChangedBy}}}
+%\fancyfoot[RO]{\tiny{URL: \url{\svnkw{HeadURL}} ; \space Last changed on: \svndate ; \space Revision: \svnrev ; \space Author: \svnFullAuthor*{\svnauthor}}}
+%\fancyhead[C]{page \thepage}
+%%svn-info in footer, page in header
+%\renewcommand{\headrulewidth}{0.3pt}
 
 \newcommand{\imsize}{\linewidth}
 %\graphicspath{{img/}}  % so we can write \inputgraphics{image} instead of \inputgraphics{img/image}
