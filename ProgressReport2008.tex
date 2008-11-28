@@ -1,0 +1,123 @@
+\documentclass[a4paper,twoside,abstract=true,bibtotoc]{scrartcl}
+%\documentclass[draft,a4paper,twoside,abstract=true,bibtotoc]{scrartcl}
+
+\newif\ifhtml
+
+% HTML generation (.doc-conversion) > set html to true and use htlatex. else set html to false
+%\htmltrue
+\htmlfalse
+
+\ifhtml % In case of web format output...
+\def\pgfsysdriver{pgfsys-tex4ht.def}
+\usepackage[dvips]{graphicx}
+\else
+\usepackage[pdftex]{graphicx}
+\fi
+
+\usepackage[ansinew]{inputenc}                    % so I can write my Name without \"{u}
+\usepackage[T1]{fontenc}                          % Standard Latex-Fonts
+\usepackage[english]{babel}                       % change [english] if written in other language
+\usepackage{svn-multi}                            % to add SVN-Versioning-Info
+\usepackage{subfig}                               % subfigures
+\usepackage[Gray]{SIunits}                        % typographically correct units (\milli\meter, \kilo\electronvolt)
+\usepackage{booktabs}                             % nice tables
+\usepackage{fancyhdr}                             % nice header
+\usepackage{tikz}                                 % extremely nice drawings
+\usepackage{microtype}                            % for nicer typography
+\usepackage{varioref}                             % for variable references with \vref gives "image on preceeding page"
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{lipsum}                               % for blind-text (\lipsum)
+\usepackage{numprint}                             % nice numbers with \numprint{1.234E3)
+\usepackage[numbers,square,sort&compress]{natbib} % nice bibliography
+\usepackage{pstricks,pstricks-add,pst-math,pst-xkey}
+%\usepackage{showkeys}                            % label names in draft
+%\usepackage{endfloat}                            % floats at the end, use [nomarker] if "Figure x approx. here" is undesire
+%\usepackage{flafter}                             % floats after their first instance
+%\usepackage{setspace}
+%\doublespacing
+%\onehalfspacing
+%\singlespacing
+
+\ifhtml
+\usepackage{url}
+\usepackage{index}
+\usepackage{color}
+\newindex{todo}{todo}{tnd}{Todo List} 
+\newcommand{\todo}[1]{\textcolor{red}{[To do: #1]}\index[todo]{#1}}
+\else
+\usepackage{lineno}
+% line numbers
+\linenumbers
+%%\pagewiselinenumbers
+\modulolinenumbers[2]
+\usepackage{ae}
+\usepackage[backref,pdftex]{hyperref}			% backref generates link from references back to text
+\usepackage[all]{hypcap}                        % make hyperref work nicely with captions
+\usepackage[]{todonotes} 		                % [disable]
+\hypersetup{colorlinks=false,%
+			pdfauthor={David Haberthür},%
+			pdftitle={Title},%
+			pdfsubject={Subject},%
+			pdfkeywords={keyword1, keyword2},%
+			pdfborder={0 0 0},% > no border around links, but...
+			colorlinks=true % ... colored (true > no border, use "false" for final output)
+			}
+\fi
+
+%% Subversion Information
+\svnidlong
+{$HeadURL: $}
+{$LastChangedDate: $}
+{$LastChangedRevision: $}
+{$LastChangedBy: $}
+\svnid{$Id$} 
+
+\pagestyle{fancy}
+%%
+\cfoot{}
+\rfoot{}
+%%
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[RO]{{\footnotesize\rightmark}}
+\fancyfoot[RO]{\thepage}
+\fancyhead[LE]{{\footnotesize\leftmark}}
+\fancyfoot[LE]{\thepage}
+%svn-info in footer, page in header
+\fancyfoot[LE]{\tiny{URL: \url{\svnkw{HeadURL}} ; \space Last changed on: \svndate ; \space Revision: \svnrev ; \space Author: \svnFullAuthor*{\svnauthor}}}
+\fancyfoot[RO]{\tiny{URL: \url{\svnkw{HeadURL}} ; \space Last changed on: \svndate ; \space Revision: \svnrev ; \space Author: \svnFullAuthor*{\svnauthor}}}
+\fancyhead[C]{page \thepage}
+%svn-info in footer, page in header
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newcommand{\imsize}{\linewidth}
+%\graphicspath{{img/}}  % so we can write \inputgraphics{image} instead of \inputgraphics{img/image}
+
+\title{Title}
+\author{David Haberthür}
+\date{Version of \today}
+
+\begin{document}
+\maketitle
+\todo{write the document!}
+
+\begin{abstract}
+Abstract
+\end{abstract}
+
+\ifhtml
+\emph{Did you sort out all todos?}
+\else
+\listoftodos
+\fi
+
+\tableofcontents
+
+\section{Introduction}
+Text\cite{Tsuda2008}
+
+\bibliographystyle{unsrtnat}
+\bibliography{../../references} % since my LaTeX-files sit in folders like p:\#docs\thisdocument\file.tex and the reference.bib is in p:\#doc
+
+\end{document}

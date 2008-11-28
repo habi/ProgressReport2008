@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Tsuda et~al.(2008)Tsuda, Filipovic, Haberth\"{u}r, Dickie, Matsui,
+  Stampanoni, and Schittny]{Tsuda2008}
+A.~Tsuda, N.~Filipovic, D.~Haberth\"{u}r, R.~Dickie, Y.~Matsui, M.~Stampanoni,
+  and J.~C. Schittny.
+\newblock {Finite element 3D reconstruction of the pulmonary acinus imaged by
+  synchrotron X-ray tomography}.
+\newblock \emph{J Appl Physiol}, 105\penalty0 (3):\penalty0 964--976, 2008.
+\newblock \doi{10.1152/japplphysiol.90546.2008}.
+\newblock URL \url{http://jap.physiology.org/cgi/content/abstract/105/3/964}.
+
+\end{thebibliography}
