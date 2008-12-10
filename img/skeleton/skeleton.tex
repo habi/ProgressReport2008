@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{graphicx,tikz}
+\usepackage{SIunits}
+\usepackage[graphics,tightpage,active]{preview}
+\PreviewEnvironment{tikzpicture}
+\newlength\imagewidth
+\newlength\imagescale
+\begin{document}
+
+\pgfmathsetlength{\imagewidth}{\linewidth} % desired displayed width of image
+\pgfmathsetlength{\imagescale}{\imagewidth/670} % pixel width of image
+\usetikzlibrary{shapes.arrows}
+%
+%% adjust scale of tikzpicture (and direction of y) such that pixel
+%% coordinates can be used for drawing overlays:
+\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+
+% place image (integer coordinates refer to pixel centers):
+\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+  {\includegraphics[width=\imagewidth]{segment-crop0041}};
+
+%\draw (100,500) node ;
+\draw[|-|,thick] (25,500) -- (175,500) node[midway,above] {\unit{300}{\micro\meter}};
+\end{tikzpicture}
+
+
+%\begin{tikzpicture}
+%\draw [help lines] (0,0) grid (3,2);
+%\coordinate (a) at (1,0);
+%\coordinate (b) at (3,1);
+%\draw (a) -- (b);
+%\coordinate (c) at ($ (a)!.25!(b) $);
+%\coordinate (d) at ($ (c)!1cm!90:(b) $);
+%\draw [<->] (c) -- (d) node [sloped,midway,above] {1cm};
+%\end{tikzpicture}
+
+\end{document}

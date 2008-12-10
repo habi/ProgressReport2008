@@ -92,11 +92,7 @@
 
 \newcommand{\imsize}{\linewidth}
 
-<<<<<<< .mine
 \title{Progress Report for the Graduate School for Cellular and Biomedical Sciences - 2008}
-=======
-\title{Pijogjess Report for the 'Graduate School for Cellular and Biomedical Sciences' - 2008}
->>>>>>> .r7
 \author{David Haberthür}
 \date{Version of \today}
 
@@ -118,7 +114,7 @@ The last year I have focused on multimodal imaging, nanoparticle detection and s
 
 During the summer I had the possibility to conduct my master thesis of the MAS in medical physics directly involved with the development of a new scanning protocol at the TOMCAT beamline, working for two full months at the PSI. The details of this newly developed method are described in section~\ref{sec:wide field scanning}. The developed method is still refined now and will be implemented for end-user access at the beamline early next year.
 
-\subsection{SRXTM}
+\section{SRXTM}
 During three regularly allotted beam times we obtained tomographic images of 67 samples in total 151 scans. The difference between the amount of samples arises through the use of a novel imaging method, which uses several partial scans to obtain tomographic images of one sample. During the term of my master thesis I have had the possibility to perform 17 scans during the so called 'in house development' time at the beamline to proof the simulated predictions made during the development of the wide field scanning method.
 
 Most of the samples we recorded, were obtained from lung samples from R108-rats\todo{details and citation needed!}. During the third beamtime in 2008 we also obtained tomographic scans of mice\todo{citation needed, explain the details of this experiment} bones (tibia, femur and vertebrae) to asses the trabecular structure of these bones. This particular experiment has been performed as part of a collaboration with the University of Göttingen, Germany. 
@@ -128,16 +124,13 @@ Most of the samples we recorded, were obtained from lung samples from R108-rats\
 %08c - 15 samples: 1 normal, 13*360, 19*wfs a je 3 subscans 
 % masterarbeit 17* R108C60_22_20x
 
-\subsection{Skeletonization}
-During the last weeks of 2007 I have started to develop a method for the extraction of structural information from the scanned lung samples. The method has been refined to such a degree that I have been able to extract the first partial acinar airway skeleton of a mammalian lung that has ever been extracted. There have been publications on the extraction of an airway skeleton before~\cite{Hasegawa2006,Sauret1999,Suter2004}, but none of the airway skeletons ever published is on such a minute level as we are now able to provide it. \citet{Sauret1999} state, that the slice thickness of their computed tomography images is \unit{1}{\milli\meter}, while the dimensions our whole sample is around \unit{2}{\milli\meter}, so we roughly have a resolution that is about 1000 $\times$ finer than what has been achieved up to now.
-
 \begin{itemize}
 	\item masterarbeit
 	\item erstes skelett von terminalen luftwegen überhaupt
 	\item publikation mit akira
 \end{itemize}
 
-\section{Multimodal Imaging}
+\subsection{Multimodal Imaging}
 \label{sec:multimodal imaging}
 \begin{itemize}
 	\item EM vs. SRXTM
@@ -145,28 +138,50 @@ During the last weeks of 2007 I have started to develop a method for the extract
 	\item Proceeding nach XRM2008, momentan nicht weiter verfolgt.
 \end{itemize}
 
+
 \section{Skeletonization}
 \label{sec:skeletonization}
+During the last weeks of 2007 I have started to develop a method for the extraction of structural information from the scanned lung samples. The method has been refined to such a degree that I have been able to extract the first partial acinar airway skeleton of a mammalian lung that has ever been extracted. There have been publications on the extraction of an airway skeleton before~\cite{Hasegawa2006,Sauret1999,Suter2004}, but none of the airway skeletons ever published is on such a minute level as we are now able to provide it. \citet{Sauret1999} state, that the slice thickness of their computed tomography images is \unit{1}{\milli\meter}, while the dimensions our whole sample is around \unit{2}{\milli\meter}, so we roughly have a resolution that is about 1000 $\times$ finer than what has been achieved up to now.
+
+\subsection{Method}
+I have been using the free Medical Image Processing Software MeVisLab (Version 1.6 (2008-05-03 Release), MeVis Research GmbH, Bremen, Germany, \url{http://www.mevislab.de}) for the analysis of the airway tree of our scanned lung samples. MeVisLab works as a graphical processing software where existing image processing, visualization and interaction modules can be linked to form complex image processing networks using a graphical programming approach. %Figure~\ref{fig:skeletonization workflow} shows the workflow necessary to achieve images of a lung segment as shown in figure~\ref{fig:skeletonization}.
+
+An airway segment is extracted from the tomographic dataset using a threshold interval based region growing algorithm which works either on a binarized image\footnote{A binarized image is compromised only of black and white pixels for tissue and airspace, respectively.} or on the unprocessed raw tomographic slices. Figure~\ref{fig:segment} shows a segment of a partial acinus extracted with this algorithm. After the segmentation we perform a distance transformation based skeletonization of the segment. MeVisLab offers such a skeletonization module (DtfSkeletonization, the underlying ideas of the module are described in section 3 of the paper by \citet{Selle2001}). Briefly, the algorithm symmetrically erodes voxels from the surface of the segment while preserving the initial topology of the structure, meaning that the number of connected objects, cavities and tunnels remain the same.
+
+The structure of the airways is strictly speaking topologically congruent to a point, meaning that it does not possess any loops and knots inside the structure. Since the skeletonization of our datasets generally contains multiple loops, a semi-automatic correction step has been implemented to achieve a topologically and morphologically correct skeleton of any airway segment. Figure~\ref{fig:skeleton} shows such a skeleton. To our best knowledge, the airway skeleton shown in aforementioned figure is one of only two correct acinar skeleton trees ever shown, the other being shown in figure 6 of the seminal paper by~\citet{Haefeli-Bleuer1988}. While we are aware that our skeleton shows only a partical acinar tree, we would like to stress the advantages of our method: 
 \begin{itemize}
-	\item[Skeletonization] BRP grant, NF-Grant
-	\item Dank MeVisLab (MeVisLab, Software for Medical Image Processing and Visualization, \url{http.//www.mevislab.de}) DTFSkeletoniuation-Modul~\cite{Selle2001}, vorher versucht Implementierung von Cornea-Algorithmus, aber an Datenmenge gescheitert, Darstellung auch schwierig.
-	\item 
+	\item resolution 1000$\times$ more precise
+	\item unrestricted three dimensional view
+	\item automatic skeletonization with error correction possibility
 \end{itemize}
 
-\begin{figure}[tb]
-	\centering
-		\input{img/workflow}
-	\caption{Skeletonization Workflow}
-	\label{fig:asdf}
-\end{figure}
 
-\renewcommand{\imsize}{.333\linewidth}
+%\begin{figure}[tb]
+%	\centering
+%		\input{img/workflow}
+%	\caption{Skeletonization Workflow}
+%	\label{fig:skeletonization workflow}
+%\end{figure}
+
+\renewcommand{\imsize}{.33\linewidth}
+\newlength\imagewidth
+\newlength\imagescale
+\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
+\pgfmathsetlength{\imagescale}{\imagewidth/670} % pixel width of image
+\usetikzlibrary{shapes.arrows}
+
 \begin{figure}[tb]
 	\centering
-		\subfloat[Segment]{\label{fig:segment}\includegraphics[width=\imsize]{img/skeleton/segment-crop0041}}
+		\subfloat[Segment]{\label{fig:segment}\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+		% place image (integer coordinates refer to pixel centers):
+		\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+  		{\includegraphics[width=\imagewidth]{img/skeleton/segment-crop0041}};
+		\draw[|-|,thick] (25,550) -- (175,550) node[midway,above] {\unit{300}{\micro\meter}};
+		\end{tikzpicture}}
 		\subfloat[Overlay of \subref{fig:segment} and \subref{fig:skeleton}]{\label{fig:overlay}\includegraphics[width=\imsize]{img/skeleton/overlay-crop0041}}
 		\subfloat[Skeleton]{\label{fig:skeleton}\includegraphics[width=\imsize]{img/skeleton/skel-crop0041}}
-	\caption{Results of the skeletonization of the airways of a partial acinus. An segmented acinus located at the tip of a scanned lung sample, directly underneath the pleura has been extracted from the tomographic dataset. A part of this segment has been used for the extraction of the skeleton, this part is shown in~\subref{fig:segment}. Panel \subref{fig:overlay} shows the skeleton inside the half transparent airway segment. The skeleton of the acinar airways is shown in red in panel~\subref{fig:skeleton}.}
+	\caption{Results of the skeletonization of the airways of a partial acinus from a Sprague Dawley rat four days after birth. An segmented acinus located at the tip of a scanned lung sample, directly underneath the pleura has been extracted from the tomographic dataset. A part of this segment has been used for the extraction of the skeleton, this part is shown in~\subref{fig:segment}. Panel \subref{fig:overlay} shows the skeleton inside the half transparent airway segment. The skeleton of the acinar airways is shown in red in panel~\subref{fig:skeleton}.}
+	%\todo[inline]{Correct scalebar?}
 	\label{fig:skeletonization}
 \end{figure}
 
@@ -174,25 +189,63 @@ During the last weeks of 2007 I have started to develop a method for the extract
 \section{Wide Field Scanning}
 \label{sec:wide field scanning}
 \begin{itemize}
-	\item[Wide Field Scanning] Masterarbeit PSI
+	\item Wide Field Scanning Masterarbeit PSI
 	\item Masterarbeit NDS, aber auch Projekt, dass wir verwenden können für Skelettierung
+	\item Overlap > fig \ref{fig:merge-proj} smaller than 3$*$size(SubScan)
 	\item MATLAB-Programmierung
 	\item implementierung an der Beamline geplant für Frühling 2009
 \end{itemize}
 
-\renewcommand{\imsize}{.333\linewidth}
-\begin{figure}[tb]
-	\centering
-		\subfloat[Uncorrected projection image from subscan s$_1$]{\label{fig:s1}\includegraphics[width=\imsize]{img/merge/R108C10B-s1}}
-		\subfloat[s$_2$]{\label{fig:s2}\includegraphics[width=\imsize]{img/merge/R108C10B-s2}}
-		\subfloat[s$_3$]{\label{fig:s3}\includegraphics[width=\imsize]{img/merge/R108C10B-s3}}
-		\renewcommand{\imsize}{\linewidth}
-		\subfloat[Merged and corrected image from the three subscans shown above]{\label{fig:merge-proj}\includegraphics[width=\imsize]{img/merge/R108C10B-merge}}\\
-		\subfloat[Reconstructed slice from all projections above]{\label{fig:merge-rec}\includegraphics[width=\imsize]{img/merge/R108C10B-merge1016-crop}}\\
-	\caption{asdf}
-	\label{fig:asdf}
-\end{figure}
+\renewcommand{\imsize}{.29\linewidth}
+\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
+\pgfmathsetlength{\imagescale}{\imagewidth/512} % pixel width of image
 
+\begin{figure}
+	\centering
+		\subfloat[Uncorrected projection image from subscan s$_1$ with a size of 1024$\times$1024 pixels at a resolution of \unit{0.7}{\micro\meter\per pixel.}]{%
+			\label{fig:s1}%
+			\includegraphics[width=\imsize]{img/merge/R108C10B-s1}%
+			}\
+		\subfloat[Uncorrected projection image from subscan s$_2$.]{%
+			\label{fig:s2}%
+			\includegraphics[width=\imsize]{img/merge/R108C10B-s2}%
+			}\
+		\subfloat[Uncorrected projection image from subscan s$_3$.]{%
+			\label{fig:s3}%
+			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+				% place image (integer coordinates refer to pixel centers):
+				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+  					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-s3}};
+				\draw[|-|,thick,color=white] (128-100,450) -- (384-100,450) node[midway,above] {\unit{700}{\micro\meter}};
+				\end{tikzpicture}%
+			}\
+		\renewcommand{\imsize}{.9\linewidth}
+		\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
+		\pgfmathsetlength{\imagescale}{\imagewidth/1498} % pixel width of image
+		\subfloat[Merged and corrected image from the three subscans shown above. The merged projections have a size of 2997$\times$1024 pixels at a resolution of \unit{0.7}{\micro\meter\per pixel}. 4676 projections like the one shown here have been obtained over a sample rotation of \unit{180}{\degree}.]{%
+			\label{fig:merge-proj}%
+			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+				% place image (integer coordinates refer to pixel centers):
+				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+  					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-merge}};
+				\draw[|-|,thick,color=white] (128-100,450) -- (384-100,450) node[midway,above] {\unit{700}{\micro\meter}};
+			\end{tikzpicture}%
+			}\\
+		\pgfmathsetlength{\imagescale}{\imagewidth/1451} % pixel width of image
+		\subfloat[Cropped part of one reconstructed slice from all projections above]{%
+			\label{fig:merge-rec}%
+			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+				% place image (integer coordinates refer to pixel centers):
+				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+  					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-merge1016-crop}};
+				\draw[|-|,thick,color=white] (128-100,450) -- (384-100,450) node[midway,above] {\unit{700}{\micro\meter}};
+			\end{tikzpicture}%
+			}\\
+	\caption{Wide Field Scan Results for a rat lung sample 10 days after birth, showing the distal tip of the right under lung lobe.}
+	\label{fig:wide field scan}
+	%\todo[inline]{distal tip of RUL: true?}
+	%\todo[inline]{Correct scalebar?}
+\end{figure}
 
 \section{Publications}
 \label{sec:publications}
