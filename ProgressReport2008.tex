@@ -163,12 +163,14 @@ The structure of the airways is strictly speaking topologically congruent to a p
 %	\label{fig:skeletonization workflow}
 %\end{figure}
 
+%%%% set TikZ-Image-stuff
 \renewcommand{\imsize}{.33\linewidth}
 \newlength\imagewidth
 \newlength\imagescale
 \pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
 \pgfmathsetlength{\imagescale}{\imagewidth/670} % pixel width of image
 \usetikzlibrary{shapes.arrows}
+%%%%
 
 \begin{figure}[tb]
 	\centering
@@ -181,13 +183,21 @@ The structure of the airways is strictly speaking topologically congruent to a p
 		\subfloat[Overlay of \subref{fig:segment} and \subref{fig:skeleton}]{\label{fig:overlay}\includegraphics[width=\imsize]{img/skeleton/overlay-crop0041}}
 		\subfloat[Skeleton]{\label{fig:skeleton}\includegraphics[width=\imsize]{img/skeleton/skel-crop0041}}
 	\caption{Results of the skeletonization of the airways of a partial acinus from a Sprague Dawley rat four days after birth. An segmented acinus located at the tip of a scanned lung sample, directly underneath the pleura has been extracted from the tomographic dataset. A part of this segment has been used for the extraction of the skeleton, this part is shown in~\subref{fig:segment}. Panel \subref{fig:overlay} shows the skeleton inside the half transparent airway segment. The skeleton of the acinar airways is shown in red in panel~\subref{fig:skeleton}.}
-	%\todo[inline]{Correct scalebar?}
+	\todo[inline]{Correct scalebar?}
 	\label{fig:skeletonization}
 \end{figure}
 
 
 \section{Wide Field Scanning}
 \label{sec:wide field scanning}
+Various applications depend on the availability of high resolution tomographic images of the studied sample. The available field of view (FOV) of microscopy based imaging methods like SRXTM and micro-computed tomography stations is limited through the camera and microscope optics. The FOV can only be increased if the magnification of the microscope optics is decreased, thus decreasing the available resolution. At TOMCAT, this constraint leads to the condition, that the FOV is as low as 0.72$\times$\unit{0.72}{\milli\meter} for the highest resolution (with a pixel size of 350$\times$\unit{350}{\nano\meter} and a 20-fold magnification).
+
+The field of view can be enlarged in two directions
+
+vertical -> easy
+
+horizontal -> masterarbeit
+
 \begin{itemize}
 	\item Wide Field Scanning Masterarbeit PSI
 	\item Masterarbeit NDS, aber auch Projekt, dass wir verwenden können für Skelettierung
@@ -196,20 +206,20 @@ The structure of the airways is strictly speaking topologically congruent to a p
 	\item implementierung an der Beamline geplant für Frühling 2009
 \end{itemize}
 
-\renewcommand{\imsize}{.29\linewidth}
+\renewcommand{\imsize}{.27\linewidth}
 \pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
 \pgfmathsetlength{\imagescale}{\imagewidth/512} % pixel width of image
 
-\begin{figure}
+\begin{figure}[p]
 	\centering
-		\subfloat[Uncorrected projection image from subscan s$_1$ with a size of 1024$\times$1024 pixels at a resolution of \unit{0.7}{\micro\meter\per pixel.}]{%
+		\subfloat[Uncorrected projection image from subscan s$_1$ with a size of 1024$\times$1024 pixels at a resolution of \unit{0.7}{\micro\meter\per pixel}.]{%
 			\label{fig:s1}%
 			\includegraphics[width=\imsize]{img/merge/R108C10B-s1}%
-			}\
+			}%\
 		\subfloat[Uncorrected projection image from subscan s$_2$.]{%
 			\label{fig:s2}%
 			\includegraphics[width=\imsize]{img/merge/R108C10B-s2}%
-			}\
+			}%\
 		\subfloat[Uncorrected projection image from subscan s$_3$.]{%
 			\label{fig:s3}%
 			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
@@ -218,11 +228,11 @@ The structure of the airways is strictly speaking topologically congruent to a p
   					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-s3}};
 				\draw[|-|,thick,color=white] (128-100,450) -- (384-100,450) node[midway,above] {\unit{700}{\micro\meter}};
 				\end{tikzpicture}%
-			}\
-		\renewcommand{\imsize}{.9\linewidth}
+			}%\
+		\renewcommand{\imsize}{.81\linewidth}
 		\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
 		\pgfmathsetlength{\imagescale}{\imagewidth/1498} % pixel width of image
-		\subfloat[Merged and corrected image from the three subscans shown above. The merged projections have a size of 2997$\times$1024 pixels at a resolution of \unit{0.7}{\micro\meter\per pixel}. 4676 projections like the one shown here have been obtained over a sample rotation of \unit{180}{\degree}.]{%
+		\subfloat[Merged and corrected image from the three subscans shown above. The merged projections have a size of 2997$\times$1024 pixels at a resolution of \unit{0.7}{\micro\meter\per pixel}. The Subscans s$_1$--s$_3$ overlap each other by approximately 150 pixels, thus the width of the merged projection is smaller than three times the width of the subscans. 4676 projection images like the one shown here have been obtained over a sample rotation of \unit{180}{\degree} and are then reconstructed into a tomographic dataset using filtered backprojection.]{%
 			\label{fig:merge-proj}%
 			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 				% place image (integer coordinates refer to pixel centers):
@@ -232,7 +242,7 @@ The structure of the airways is strictly speaking topologically congruent to a p
 			\end{tikzpicture}%
 			}\\
 		\pgfmathsetlength{\imagescale}{\imagewidth/1451} % pixel width of image
-		\subfloat[Cropped part of one reconstructed slice from all projections above]{%
+		\subfloat[Cropped part of one slice of the tomographic dataset reconstructed from the merged projections, where one is shown in subfigure~\subref{fig:merge-proj}.]{%
 			\label{fig:merge-rec}%
 			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 				% place image (integer coordinates refer to pixel centers):
@@ -243,8 +253,8 @@ The structure of the airways is strictly speaking topologically congruent to a p
 			}\\
 	\caption{Wide Field Scan Results for a rat lung sample 10 days after birth, showing the distal tip of the right under lung lobe.}
 	\label{fig:wide field scan}
-	%\todo[inline]{distal tip of RUL: true?}
-	%\todo[inline]{Correct scalebar?}
+	\todo[inline]{distal tip of RUL: true?}
+	\todo[inline]{Correct scalebar?}
 \end{figure}
 
 \section{Publications}
