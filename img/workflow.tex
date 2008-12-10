@@ -1,0 +1,36 @@
+%\documentclass{article}
+%\usepackage[pdftex,active,tightpage]{preview}
+%\usepackage{tikz}
+%\usetikzlibrary{shapes,arrows}
+%\begin{document}
+%\begin{preview}
+% define styles
+	\usetikzlibrary{shapes,arrows}
+    \tikzstyle{decision} = [diamond, draw, text width=4.5em, text badly centered, node distance=2.5cm, inner sep=0pt]
+    \tikzstyle{block} = [rectangle, draw, text width=5em, text centered, rounded corners, minimum height=4em]
+    \tikzstyle{line} = [draw, -latex']
+    \tikzstyle{cloud} = [draw, ellipse, node distance=2.5cm, minimum height=2em]
+ \begin{tikzpicture}[node distance = 2cm, auto]
+     % Place nodes
+     \node [block] (input) {Input};
+     \node [block, below of=input] (filter) {Image Filtering};
+     \node [block, below of=filter] (reg) {Region Growing};
+     \node [decision, below of=reg] (skel) {Skel\-eton\-iza\-tion};
+     \node [block, left of=reg, node distance=2.5cm] (edit) {Mask Editing};
+     \node [block, below of=skel, node distance=2.5cm] (vis) {3D Visualization};
+     \node [cloud, left of=input, node distance=2.5cm] (ROI) {ROI};
+     \node [cloud, right of=input, node distance=2.5cm] (GVR) {GVR};
+     % Draw edges
+     \path [line] (input) -- (filter);
+     \path [line] (filter) -- (reg);
+     \path [line] (reg) -- (skel);
+     \path [line] (edit) -- (reg);
+     \path [line] (skel) -- (vis);
+     \path [line] (skel) -| node [near start] {not ok} (edit);
+     \path [line] (skel) -- node {ok}(vis);
+     \path [line, dashed] (ROI) -- (input);
+     \path [line, dashed] (ROI) |- (filter);
+     \path [line, dashed] (GVR) -- (input);
+\end{tikzpicture}
+%\end{preview}
+%\end{document}
