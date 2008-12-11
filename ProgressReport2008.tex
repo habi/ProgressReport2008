@@ -31,7 +31,6 @@
 \usepackage[numbers,square,sort&compress]{natbib} % nice bibliography
 \usepackage{threeparttable}
 \usepackage{wrapfig}
-%\usepackage{showkeys}			% label names in draft
 %\usepackage{endfloat}          % floats at the end, use [nomarker] if "Figure x approx. here" is undesire
 %\usepackage{flafter}           % floats after their first instance
 %\usepackage{setspace}
@@ -188,15 +187,34 @@ The structure of the airways is strictly speaking topologically congruent to a p
 \end{figure}
 
 
-\section{Wide Field Scanning}
+\section{Increasing the field of view of tomographic Imaging}
 \label{sec:wide field scanning}
 Various applications depend on the availability of high resolution tomographic images of the studied sample. The available field of view (FOV) of microscopy based imaging methods like SRXTM and micro-computed tomography stations is limited through the camera and microscope optics. The FOV can only be increased if the magnification of the microscope optics is decreased, thus decreasing the available resolution. At TOMCAT, this constraint leads to the condition, that the FOV is as low as 0.72$\times$\unit{0.72}{\milli\meter} for the highest resolution (with a pixel size of 350$\times$\unit{350}{\nano\meter} and a 20-fold magnification).
 
-The field of view can be enlarged in two directions
+The field of view can be enlarged by two different methods, by stacking multiple scans and by the so called wide field scanning, which has been developed and implemented at TOMCAT by me during the past year.
 
-vertical -> easy
+\subsection{Stacking of multiple Scans}
+The FOV in the direction of the rotation axis of the sample can easily be enlarged by stacking multiple scans on top of each other. This is feasible for long and thin samples and has been implemented at TOMCAT through accurate control of the end-station setup and sample position and through calibration of the machine. A schematic drawing of this method is shown in figure~\ref{fig:stacking}.
+\begin{figure}[tb]
+	\centering
+		\input{img/stacking}
+	\caption{Increasing the field of view in vertical direction. feasible for long and thin samples. Two different scans are acquired and reconstructed. Thorough calibration ensures that the resulting image stacks can simply be stacked on top of each other.}
+	\label{fig:stacking}
+\end{figure}
 
-horizontal -> masterarbeit
+\subsection{Wide Field Scanning}
+\label{sec:wfs-details}
+Increasing the FOV in horizontal direction of the sample is not a similarly easy task, since the obtained projection images have to be merged together to one big projection prior to be able to reconstruct the tomographic dataset of the sample.
+
+
+
+Details in Fig~\ref{fig:wide field scan setup}, result of (different amount of subscans!) in fig~\ref{fig:wide field scan results}.
+\begin{figure}[tb]
+	\centering
+		\input{img/widefieldscanning}
+	\caption{Increasing the field of view in horizontal direction through so called wide field scanning. Details of the scanning method are described in section~\ref{sec:wfs-details} Note that if a scan has been performed like that, we can stack different wide field scans on top of each other as shown in figure~\ref{fig:stacking} to additionally increase the FOV in vertical direction.}
+	\label{fig:wide field scan setup}
+\end{figure}
 
 \begin{itemize}
 	\item Wide Field Scanning Masterarbeit PSI
@@ -252,46 +270,21 @@ horizontal -> masterarbeit
 			\end{tikzpicture}%
 			}\\
 	\caption{Wide Field Scan Results for a rat lung sample 10 days after birth, showing the distal tip of the right under lung lobe.}
-	\label{fig:wide field scan}
+	\label{fig:wide field scan results}
 	\todo[inline]{distal tip of RUL: true?}
 	\todo[inline]{Correct scalebar?}
 \end{figure}
 
 \section{Publications}
 \label{sec:publications}
-\subsection{published}
-\begin{itemize}
-	\item Paper mit Akira~\cite{Tsuda2008}
-\end{itemize}
+Our group has been working on a publication to show the comparability of measurements obtained with SRXTM with classical morphological experiments. The paper~\cite{Tsuda2008} has been published this summer, I am one of the co-authors and have provided three figures, and substantial parts of the text.
 
-\subsection{submitted}
-\begin{itemize}
-	\item Proceedings XRM~\cite{Haberthuer2009}
-\end{itemize}
+As described in section~\ref{sec:multimodal imaging}, the multimodal imaging method has been successfully established at our institute\todo{really described there?}. I have presented this method as a poster at two conferences~\cite{Haberthuer2008,Haberthuer2008b} and submitted a proceeding to the Journal of Physics after the second conference~\cite[see enclosed confidential copy]{Haberthuer2009}.
 
-\subsection{nds master thesis}
-\begin{itemize}
-	\item NDS Diplomarbeit~\cite{Haberthuer2008c}
-\end{itemize}
+The preliminary results of my skeletonization method have been presented at a talk at the 'Tag der Anatomie'~\cite{Haberthuer2008a}, it is planned that --- now that the method is applicable to our samples --- we prepare a publication of this method.
 
-\subsection{posters}
-\begin{itemize}
-	\item Poster @ CIMST~\cite{Haberthuer2008}
-	\item Poster @ XRM~\cite{Haberthuer2008b}
-\end{itemize}
-
-\subsection{talks}
-\begin{itemize}
-	\item Tag der Anatomie 2008~\cite{Haberthuer2008a}
-	\item NDS-Abschlussweekend~\cite{Haberthuer2008d}
-\end{itemize}
-
-\subsection{planned}
-\begin{itemize}
-	\item wide field scanning
-\end{itemize}
+The wide field scanning method has been thoroughly described in my master thesis of the MAS in Medical Physics~\cite{Haberthuer2008c} and presented in front of the other master students~\cite{Haberthuer2008d}. I am now in the process of writing a publication now that additional experiments to prove the simulations and predictions have been carried out.
 
 \bibliographystyle{unsrtnat}
-\bibliography{../../references} % since my LaTeX-files sit in folders like p:\#docs\thisdocument\file.tex and the reference.bib is in p:\#doc
-
+\bibliography{../../references}
 \end{document}
