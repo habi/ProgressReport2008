@@ -10,9 +10,11 @@
 		%\draw[ultra thick] (0,-10) -- (0,10);
 		%\draw[ultra thick] (0,0) circle (.125);
 	% rotation axis
-		\draw[ultra thick, ->] (0,-2) ++ (-50:.75) arc (-50:300:.75 and .25);
-		\draw[ultra thick] (0,-3) node[below] {Rotation axis} -- ++(0,2);
-		\draw[ultra thick,dotted] (0,-1) -- ++(0,4);
+		\draw[->] (0,-2) ++ (-50:.75) arc (-50:300:.75 and .25);
+		\draw (0,-3) node[below] {Rotation axis} -- ++(0,2);
+		\draw[dotted] (0,-1) -- ++(0,2);
+		\draw (0,1) -- ++(0,0.25);
+		\draw[dotted] (0,1.25) -- ++(0,2);
 	% position 1
 		\draw (0,-1) circle (1.5 and .5);
 		\fill[shade,semitransparent] (-1.5,-1) arc (-180:0:1.5 and .5) -- ++(0,2) arc (0:180:1.5 and .5) -- cycle;
@@ -20,13 +22,13 @@
 		\draw (-1.5,1) arc (-180:0:1.5 and .5);
 		\draw (1.5,2) node[right] {Second Position};
 	% position 2
-		\draw (0,1.1) circle (1.5 and .5);
-		\fill[shade,semitransparent] (-1.5,1.1) arc (-180:0:1.5 and .5) -- ++(0,2) arc (0:180:1.5 and .5) -- cycle;
-		\draw (-1.5,1.1) arc (-180:0:1.5 and .5) -- ++(0,2) arc (0:180:1.5 and .5) -- cycle;		
-		\draw (-1.5,3.1) arc (-180:0:1.5 and .5);
+		\draw (0,1.25) circle (1.5 and .5);
+		\fill[shade,semitransparent] (-1.5,1.25) arc (-180:0:1.5 and .5) -- ++(0,2) arc (0:180:1.5 and .5) -- cycle;
+		\draw (-1.5,1.25) arc (-180:0:1.5 and .5) -- ++(0,2) arc (0:180:1.5 and .5) -- cycle;		
+		\draw (-1.5,3.25) arc (-180:0:1.5 and .5);
 		\draw (1.5,0) node[right] {First Position};
 	% rotation axis on top
-		\draw[ultra thick,->] (0,3) -- ++(0,1.5);									
+		\draw[->] (0,3.25) -- ++(0,1.5);									
 	% sample movement
 		\draw[->] (-2.5,0) -- (-2.5,2) node [text width=1.75cm,midway,left] {Sample movement relative to beam};	
 \end{tikzpicture}

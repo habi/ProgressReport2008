@@ -1,22 +1,21 @@
-\documentclass[a4paper]{scrartcl}
+\documentclass[draft,a4paper]{scrartcl}
 
 \newif\ifhtml
 
 % HTML generation (.doc-conversion) > set html to true and use htlatex. else set html to false
-%\htmltrue
+\htmltrue
 \htmlfalse
 
 \ifhtml % In case of web format output...
 	\def\pgfsysdriver{pgfsys-tex4ht.def}
-	\usepackage[dvips]{graphicx}
 \else
-	\usepackage[pdftex]{graphicx}
 \fi
 
 \usepackage[ansinew]{inputenc}	% so I can write my Name without \"{u}
 \usepackage[T1]{fontenc}        % Standard Latex-Fonts
 \usepackage[english]{babel}     % change [english] if written in other language
 \usepackage{svn-multi}          % to add SVN-Versioning-Info
+\usepackage{graphicx}
 \usepackage{subfig}             % subfigures
 \usepackage[Gray]{SIunits}      % typographically correct units (\milli\meter, \kilo\electronvolt)
 \usepackage{booktabs}           % nice tables
