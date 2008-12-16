@@ -1,4 +1,5 @@
-\documentclass[draft,a4paper]{scrartcl}
+\documentclass[]{scrartcl}
+%\usepackage[paper=A4,pagesize]{typearea}
 
 \newif\ifhtml
 
@@ -24,9 +25,9 @@
 \usepackage{microtype}          % for nicer typography
 \usepackage[numbers,square,sort&compress]{natbib} % nice bibliography
 \usepackage{relsize} 			% for nice C++ (from http://tinyurl.com/5hllnf)
-%\usepackage{setspace}
+\usepackage{setspace}
 %	\doublespacing
-%	\onehalfspacing
+	\onehalfspacing
 %	\singlespacing
 
 \ifhtml
@@ -74,11 +75,11 @@
 %\fancyhead[LE]{{\footnotesize\leftmark}}
 %\fancyfoot[LE]{\thepage}
 %%svn-info in footer, page in header
-\fancyfoot[C]{\tiny{URL: \url{\svnkw{HeadURL}} ; \space Last changed on: \svnkw{LastChangedDate} ; \space Revision: \svnkw{LastChangedRevision} ; \space Author: \svnkw{LastChangedBy}}}
-%\fancyfoot[RO]{\tiny{URL: \url{\svnkw{HeadURL}} ; \space Last changed on: \svndate ; \space Revision: \svnrev ; \space Author: \svnFullAuthor*{\svnauthor}}}
-%\fancyhead[C]{page \thepage}
-%%svn-info in footer, page in header
-%\renewcommand{\headrulewidth}{0.3pt}
+\fancyfoot[C]{\tiny{this document (\url{\svnkw{HeadURL}}) was last saved on \svnkw{LastChangedDate} by \svnkw{LastChangedBy} and in now on revision \svnkw{LastChangedRevision}}}
+\fancyhead[C]{page \thepage}
+
+%\pagestyle{headings}
+%\pagestyle{plain}
 
 \newcommand{\imsize}{\linewidth}
 
@@ -99,6 +100,7 @@
 \date{Version of \today}
 
 \begin{document}
+
 \maketitle
 
 \ifhtml
@@ -112,16 +114,16 @@
 \section{Overview}
 Analogous to to the last submitted progress report from February 19, 2008, I have focused on different tasks during the past year. The basis of my work is the data obtained with synchrotron radiation based x-ray tomographic imaging (SRXTM) at the TOMCAT beamline~\cite{Stampanoni2007} of the Swiss Light Source (SLS) at the Paul Scherrer Institut (PSI) in Villigen, Switzerland.
 
-The past year I have focused on multimodal imaging to detect sub-micron particles in the lung and on the  skeletonization of the terminal airways. As I have stated in the last progress report, the multimodal imaging approach I was working on has been superseded by recent progressions at TOMCAT and is now no longer followed actively in our group. Nevertheless we were able to match results from two imaging modalities; the results obtained with this method and the nanoparticle detection and assessment of the agreement between conventional electron microscopy and SRXTM have been presented as a poster at three meetings and submitted as a proceeding to the journal of physics (see section~\ref{sec:publications}).
+The past year I have focused on multimodal imaging to detect sub-micron particles in the lung and on the  skeletonization of the terminal airways. As I have stated in the last progress report, the multimodal imaging approach I was working on has been superseded by recent progressions at TOMCAT and is now no longer followed actively in our group. Nevertheless we were able to match results from two imaging modalities; the results obtained with this method and the nanoparticle detection and assessment of the agreement between conventional electron microscopy and SRXTM are described in section~\ref{sec:multimodal imaging}. Additionally, those results have been presented as a poster at three meetings and submitted as a proceeding to the journal of physics (see section~\ref{sec:publications}).
 
-\todo{describe Skeletonization}
+The three dimensional structure of the gas-exchanging airways influences the airflow patterns in the lung, particle deposition in the terminal airways depends on the lung structure and different mice and rat strains exhibit a different branching pattern during lung development. The structure of the airways and the branching pattern can be described using the so called airway skeleton. I have developed a method to extract structural information from SRXTM data sets, the details of this method are described in section~\ref{sec:skeletonization}.
 
-During the past summer I had the possibility to conduct the thesis of my Master of Advanced Studies ETH in Medical Physics directly involved with the development of a new scanning protocol at the TOMCAT beamline, working for two full months at the PSI, while being integrated in the group we otherwise closely collaborate. The developed method is planned to be implemented for end-user access at the beamline early next year.
+During the past summer I had the possibility to conduct the thesis of my Master of Advanced Studies ETH in Medical Physics directly involved with the development of a new scanning protocol at the TOMCAT beamline, working for two full months at the PSI, while being integrated in the group we otherwise closely collaborate. The developed method is planned to be implemented for end-user access at the beamline early next year. This so called wide field scanning method is described in section~\ref{sec:wide field scanning}.
 
 \section{SRXTM}
-During three regularly allotted beam times we obtained tomographic datasets of 67 samples while performing 151 scans in total. The difference between the amount of scanned samples and total scans arises through the use of a novel imaging method, which uses multiple partial scans to obtain tomographic images of one sample and is described later on in section~\ref{sec:wide field scanning}. During the term of my master thesis I additionally perform 17 scans during the so called ``in house development'' time at the beamline to proof the simulated predictions made during the development of the wide field scanning method.
+During three regularly allotted beam times we obtained tomographic datasets of 67~samples while performing 151~scans in total. The difference between the amount of scanned samples and total scans arises through the use of a novel imaging method, which uses multiple partial scans to obtain tomographic images of one sample and is described later on in section~\ref{sec:wide field scanning}. During the term of my master thesis I additionally perform 17~scans during the so called ``in house development'' time at the beamline to proof the simulated predictions made during the development of the wide field scanning method.
 
-Most of the samples recorded were obtained from lung samples from R108-Rats\todo{details and citation needed!}. During the third beamtime in 2008 we also obtained tomographic scans of mice bones \todo{citation needed, explain the details of this experiment} (tibia, femur and vertebrae) to asses the trabecular structure of these bones. This particular experiment has been performed as part of a collaboration with the University of Göttingen, Germany. 
+Most of the samples recorded were obtained from lung samples from Sprague Dawley rats\todo{details and citation needed! Or do we just cite~\citet{Schittny2008}}. During the third beamtime in 2008 we also obtained tomographic scans of mice bones \todo{citation needed, explain Göttingens goals, ask Johannes} (tibia, femur and vertebrae) to asses the trabecular structure of these bones. This particular experiment has been performed as part of a collaboration with the University of Göttingen, Germany. 
 
 %08a - 42 samples, 1 ruler
 %08b - 10 samples: wide field scanning (38 scans (4*5, 6*3))
@@ -147,7 +149,7 @@ There have been publications on the extraction of an airway skeleton before~\cit
 \subsection{Method}
 I have been using the free Medical Image Processing Software MeVisLab (Version 1.6 (2008-05-03 Release), MeVis Research GmbH, Bremen, Germany, \url{http://www.mevislab.de}) for the analysis of the airway tree of our scanned lung samples. MeVisLab works as a graphical processing software where existing image processing, visualization and interaction modules can be linked to form complex image processing networks using a graphical programming approach. %Figure~\ref{fig:skeletonization workflow} shows the workflow necessary to achieve images of a lung segment as shown in figure~\ref{fig:skeletonization}.
 
-An airway segment is extracted from the tomographic dataset using a threshold interval based region growing algorithm which works either on a binarized image\footnote{A binarized image is compromised only of black and white pixels for tissue and airspace, respectively.} or on the unprocessed raw tomographic slices. Figure~\ref{fig:segment} shows a segment of a partial acinus extracted with this algorithm. After the segmentation we perform a distance transformation based skeletonization of the segment. MeVisLab offers such a skeletonization module (DtfSkeletonization, the underlying ideas of the module are described in section 3 of the paper by \citet{Selle2001}). Briefly, the algorithm symmetrically erodes voxels from the surface of the segment while preserving the initial topology of the structure, meaning that the number of connected objects, cavities and tunnels of the skeleton and original structure remain the same.
+An airway segment is extracted from the tomographic dataset using a threshold interval based region growing algorithm which works either on a binarized image\footnote{A binarized image consists only of black and white pixels for tissue and airspace, respectively.} or on the unprocessed raw tomographic slices. Figure~\ref{fig:segment} shows a segment of a partial acinus extracted with this algorithm. After the segmentation we perform a distance transformation based skeletonization of the segment. MeVisLab offers such a skeletonization module (DtfSkeletonization, the underlying ideas of the module are described in section 3 of the paper by \citet{Selle2001}). Briefly, the algorithm symmetrically erodes voxels from the surface of the segment while preserving the initial topology of the structure, meaning that the number of connected objects, cavities and tunnels of the skeleton and original structure remain the same.
 
 For mammalian airways, the underlying structure is topologically congruent to a point, meaning that it does not possess any loops and knots inside the structure. Since the skeletonization of our datasets generally still contains  loops introduced through the segmentation process, a semi-automatic correction step has been implemented to achieve a topologically and morphologically correct skeleton of any airway segment. Figure~\ref{fig:skeleton} shows such a skeleton. To our best knowledge, the airway skeleton shown in aforementioned figure is one of only two correct acinar skeleton trees ever shown, the other being shown in figure 6 of the seminal paper by~\citet{Haefeli-Bleuer1988}. While we are aware that our skeleton shows only a partial acinar tree, we would like to stress three advantages of our method: 
 \begin{enumerate}
@@ -189,7 +191,7 @@ For mammalian airways, the underlying structure is topologically congruent to a 
 		\subfloat[Overlay of \subref{fig:segment} and \subref{fig:skeleton}]{\label{fig:overlay}\includegraphics[width=\imsize]{img/skeleton/overlay-crop0041}}
 		\subfloat[Skeleton]{\label{fig:skeleton}\includegraphics[width=\imsize]{img/skeleton/skel-crop0041}}
 	\caption{Results of the skeletonization of the airways of a partial acinus from a Sprague Dawley rat four days after birth. An segmented acinus located at the tip of a scanned lung sample, directly underneath the pleura has been extracted from the tomographic dataset. A part of this segment has been used for the extraction of the skeleton, this part is shown in~\subref{fig:segment}. Panel \subref{fig:overlay} shows the skeleton inside the half transparent airway segment. The skeleton of the acinar airways is shown in red in panel~\subref{fig:skeleton}.}
-	\todo[inline]{input correct scalebar!}
+	\todo[inline]{Draw correct scalebar! -> MeVisLab}
 	\label{fig:skeletonization}
 \end{figure}
 
@@ -213,7 +215,8 @@ The FOV in the direction of the rotation axis of the sample can easily be enlarg
 \label{sec:wfs-details}
 Increasing the FOV in horizontal direction of the sample is not a similarly easy task, since the obtained projection images have to be merged together to one big projection prior to be able to reconstruct the tomographic dataset of the sample. The setup of such a wide field scan is shown in figure~\ref{fig:wide field scan setup}. Projection images of the central part of the sample are recorded, then the sample is moved laterally towards the side and projection images of the outer parts of the sample are obtained.
 
-To be able to reconstruct the virtual tomographic slices throughout the full sample diameter which is larger than the camera window, we need to obtain more projection images at the outer parts of the sample than at the inner parts of the sample. We thus cannot simply merge together the projection images, but have to merge e.\ g.\ 6144 \todo{6144 is probably simpler to explain in this confined scope, also according to fig.~\ref{fig:wide field scan setup}\ldots...} projections from the outer scan with 1024 projections from the inner scan to a total of 3072 merged projections. To fulfill the sampling theorem, we have to obtain $N$ projection images for a sample of the width of $N$ pixels for a \unit{180}{\degree} scan. For this example we have scanned the the outer parts, we have scanned in the \unit{360}{\degree}-mode, thus have obtained $1024*3$ projections over two times \unit{180}{\degree}, thus in total 6144 projections. These are merged to 3072 projections over \unit{180}{\degree}.
+To be able to reconstruct the virtual tomographic slices throughout the full sample diameter which is larger than the camera window, we need to obtain more projection images at the outer parts of the sample than at the inner parts of the sample. We thus cannot simply merge together the projection images, but have to merge e.\ g.\ 6144 % \todo{6144 is probably simpler to explain in this confined scope, also according to fig.~\ref{fig:wide field scan setup}\ldots...}
+projections from the outer scan with 1024 projections from the inner scan to a total of 3072 merged projections. To fulfill the sampling theorem, we have to obtain $N$ projection images for a sample of the width of $N$ pixels for a \unit{180}{\degree} scan. For this example we have scanned the the outer parts, we have scanned in the \unit{360}{\degree}-mode, thus have obtained $1024*3$ projections over two times \unit{180}{\degree}, thus in total 6144 projections. These are merged to 3072 projections over \unit{180}{\degree}.
 
 \begin{figure}
 	\centering
@@ -227,7 +230,8 @@ The consequence of these constraints is, that the scanning time increases sevenf
 The wide field scanning method has been developed in close collaboration with the TOMCAT group not only for the needs of our group, but also for the implementation at the beamline for other users, so that samples with dimensions bigger than the camera window can be fully recorded. It has been implemented at the beamline for our needs, namely for the imaging of nearly full rat lung lobes where we want to extract the acinar airway skeleton as described in section~\ref{sec:skeletonization}. The full implementation at the beamline for all end-users is planned in spring 2009 after more tests and calibration scans have been carried out.
 
 \begin{figure}
-	\renewcommand{\imsize}{.155\linewidth}
+%	\renewcommand{\imsize}{.328\linewidth}
+	\renewcommand{\imsize}{.16\linewidth}
 	\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
 	\pgfmathsetlength{\imagescale}{\imagewidth/512} % pixel width of image
 	\centering
@@ -248,7 +252,8 @@ The wide field scanning method has been developed in close collaboration with th
 				\draw[|-|,thick,color=white] (256-64,450) -- (512-64,450) node[midway,above] {\unit{700}{\micro\meter}};
 				\end{tikzpicture}%
 			}\
-		\renewcommand{\imsize}{.48\linewidth}
+%		\renewcommand{\imsize}{\linewidth}
+		\renewcommand{\imsize}{.47\linewidth}
 		\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
 		\pgfmathsetlength{\imagescale}{\imagewidth/1498} % pixel width of image
 		\subfloat[Merged and corrected image from the three subscans shown above. The merged projections have a size of 2994$\times$1024 pixels at a resolution of \unit{1.4}{\micro\meter\per pixel}. The Subscans s$_1$--s$_3$ overlap each other by approximately 150 pixels, thus the width of the merged projection is smaller than three times the width of the subscans. The projectcions of the subscans above have been merged into 4676 projections images like the one shown here and were then reconstructed into a tomographic dataset using a filtered backprojection reconstruction algorithm.]{%
