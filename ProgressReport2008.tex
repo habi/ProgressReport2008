@@ -1,4 +1,4 @@
-\documentclass[a4paper]{scrartcl}
+\documentclass[draft,a4paper]{scrartcl}
 
 \newif\ifhtml
 
@@ -23,6 +23,7 @@
 \usepackage{tikz}				% extremely nice drawings
 \usepackage{microtype}          % for nicer typography
 \usepackage[numbers,square,sort&compress]{natbib} % nice bibliography
+\usepackage{relsize} 			% for nice C++ (from http://tinyurl.com/5hllnf)
 %\usepackage{setspace}
 %	\doublespacing
 %	\onehalfspacing
@@ -80,6 +81,18 @@
 %\renewcommand{\headrulewidth}{0.3pt}
 
 \newcommand{\imsize}{\linewidth}
+
+% define nicely typeset C++
+\def\ifmonospace{\ifdim\fontdimen3\font=0pt }
+%c C plus plus
+	\def\C++{%
+	\ifmonospace%
+	C++%
+	\else%
+	C\kern-.1667em\raise.30ex\hbox{\smaller{++}}%
+	\fi%
+	\spacefactor1000 }
+%
 
 \title{Progress Report for the Graduate School for Cellular and Biomedical Sciences - 2008}
 \author{David Haberthür}
@@ -149,7 +162,7 @@ For mammalian airways, the underlying structure is topologically congruent to a 
 %	\item automatic skeletonization with error correction possibility
 %\end{itemize}
 
-%\begin{figure}[tb]
+%\begin{figure}
 %	\centering
 %		\input{img/workflow}
 %	\caption{Skeletonization Workflow}
@@ -165,7 +178,7 @@ For mammalian airways, the underlying structure is topologically congruent to a 
 \usetikzlibrary{shapes.arrows}
 %%%%
 
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 		\subfloat[Segment]{\label{fig:segment}\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 		% place image (integer coordinates refer to pixel centers):
@@ -188,7 +201,8 @@ The field of view can be enlarged by two different methods, by stacking multiple
 
 \subsection{Stacking of multiple Scans}
 The FOV in the direction of the rotation axis of the sample can easily be enlarged by stacking multiple scans on top of each other. This is feasible for long and thin samples and has been implemented at TOMCAT through accurate control of the end-station setup and sample position and thorough calibration of the machine. A schematic drawing of this method is shown in figure~\ref{fig:stacking}.
-\begin{figure}[tb]
+
+\begin{figure}
 	\centering
 		\input{img/stacking}
 	\caption{Increasing the field of view in vertical direction. feasible for long and thin samples. Two different scans are acquired and reconstructed. Thorough calibration ensures that the resulting image stacks can simply be stacked on top of each other. For illustration purposed the two positions are shown with a slight gap, in reality the sample is moved in such a fashion that the top slice of the data set obtained at the first position is adjacent to the bottom slice of the dataset obtained at the second position}
@@ -199,49 +213,42 @@ The FOV in the direction of the rotation axis of the sample can easily be enlarg
 \label{sec:wfs-details}
 Increasing the FOV in horizontal direction of the sample is not a similarly easy task, since the obtained projection images have to be merged together to one big projection prior to be able to reconstruct the tomographic dataset of the sample. The setup of such a wide field scan is shown in figure~\ref{fig:wide field scan setup}. Projection images of the central part of the sample are recorded, then the sample is moved laterally towards the side and projection images of the outer parts of the sample are obtained.
 
-To be able to reconstruct the virtual tomographic slices throughout the full sample diameter which is larger than the camera window, we need to obtain more projection images at the outer parts of the sample than at the inner parts of the sample. We thus cannot simply merge together the projection images, but have to merge e.\ g.\ 6144 projections from the outer scan with 1024 projections from the inner scan to a total of 3072 merged projections. To fulfill the sampling theorem, we have to obtain $N$ projection images for a sample of the widht of $N$ pixels for a \unit{180}{\degree} scan. For this example we have scanned the the outer parts, we have scanned in the \unit{360}{\degree}-mode, thus have obtained $1024*3$ projections over two times \unit{180}{\degree}, thus in total 6144 projections. These are merged to 3072 projections over \unit{180}{\degree}.
+To be able to reconstruct the virtual tomographic slices throughout the full sample diameter which is larger than the camera window, we need to obtain more projection images at the outer parts of the sample than at the inner parts of the sample. We thus cannot simply merge together the projection images, but have to merge e.\ g.\ 6144 \todo{6144 is probably simpler to explain in this confined scope, also according to fig.~\ref{fig:wide field scan setup}\ldots...} projections from the outer scan with 1024 projections from the inner scan to a total of 3072 merged projections. To fulfill the sampling theorem, we have to obtain $N$ projection images for a sample of the width of $N$ pixels for a \unit{180}{\degree} scan. For this example we have scanned the the outer parts, we have scanned in the \unit{360}{\degree}-mode, thus have obtained $1024*3$ projections over two times \unit{180}{\degree}, thus in total 6144 projections. These are merged to 3072 projections over \unit{180}{\degree}.
 
-The consequence of these constraints is, that the scanning time increases sevenfold for a threefold increase in lateral FOV. The scanning time roughly scales with the amount of obtained projections which in this case is 7168 for three scans. During my master thesis at the SLS I was able to show that the sampling theorem constraints can be broken to a certain extent, while still allowing for reconstructions with a great quality. I have written a MATLAB-script that asks the user for details about the sample and outputs different scanning protocols with varying amount of projections for the central and ring scans. The total amount of these projections scales with the scanning time and is plotted towards the expected reconstruction quality that can be expected. The results of a scan performed in such a way is shown in figure~\ref{fig:wide field scan results}. The parameters of this particular scan have been chosen in such a way that a reduction of around \unit{60}{\percent} has been achieved while the reconstruction still permits automatic segmentation of airway and tissue in the resulting tomographic dataset.
-
-\begin{figure}[tb]
+\begin{figure}
 	\centering
 		\input{img/widefieldscanning}
 	\caption{Increasing the field of view in horizontal direction through so called wide field scanning. Details of the scanning method are described in section~\ref{sec:wfs-details} Note that if a scan has been performed like that, we can stack multiple wide field scans on top of each other as shown in figure~\ref{fig:stacking} to additionally increase the FOV in vertical direction.}
 	\label{fig:wide field scan setup}
 \end{figure}
 
-\begin{itemize}
-	\item Wide Field Scanning Masterarbeit PSI
-	\item Masterarbeit NDS, aber auch Projekt, dass wir verwenden können für Skelettierung
-	\item Overlap > fig \ref{fig:merge-proj} smaller than 3$*$size(SubScan)
-	\item MATLAB-Programmierung
-	\item implementierung an der Beamline geplant für Frühling 2009
-\end{itemize}
+The consequence of these constraints is, that the scanning time increases sevenfold for a threefold increase in lateral FOV. The scanning time roughly scales with the amount of obtained projections which in this case is 7168 for three scans. During my master thesis at the SLS I was able to show that the sampling theorem constraints can be broken to a certain extent, while still allowing for reconstructions with a great quality. I have written a MATLAB-script that asks the user for details about the sample and outputs different scanning protocols with varying amount of projections for the central and ring scans. The total amount of these projections scales with the scanning time and is plotted towards the expected reconstruction quality that can be expected. The results of a scan performed in such a way is shown in figure~\ref{fig:wide field scan results}. The parameters of this particular scan have been chosen in such a way that a reduction of around \unit{60}{\%} has been achieved while the reconstruction still permits automatic segmentation of airway and tissue in the resulting tomographic dataset.
 
-\renewcommand{\imsize}{.23\linewidth}
-\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
-\pgfmathsetlength{\imagescale}{\imagewidth/512} % pixel width of image
+The wide field scanning method has been developed in close collaboration with the TOMCAT group not only for the needs of our group, but also for the implementation at the beamline for other users, so that samples with dimensions bigger than the camera window can be fully recorded. It has been implemented at the beamline for our needs, namely for the imaging of nearly full rat lung lobes where we want to extract the acinar airway skeleton as described in section~\ref{sec:skeletonization}. The full implementation at the beamline for all end-users is planned in spring 2009 after more tests and calibration scans have been carried out.
 
-\begin{figure}[p]
+\begin{figure}
+	\renewcommand{\imsize}{.155\linewidth}
+	\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
+	\pgfmathsetlength{\imagescale}{\imagewidth/512} % pixel width of image
 	\centering
 		\subfloat[Uncorrected projection image from subscan s$_1$ with a size of 1024$\times$1024 pixels at a resolution of \unit{1.4}{\micro\meter\per pixel}. 4676 projections like this one have been acquired over a rotation of \unit{180}{\degree}.]{%
 			\label{fig:s1}%
 			\includegraphics[width=\imsize]{img/merge/R108C10B-s1}%
-			}%\
+			}\
 		\subfloat[Uncorrected projection image from subscan s$_2$. 1169 projections like this one have been acquired over a rotation of \unit{180}{\degree}.]{%
 			\label{fig:s2}%
 			\includegraphics[width=\imsize]{img/merge/R108C10B-s2}%
-			}%\
+			}\
 		\subfloat[Uncorrected projection image from subscan s$_3$. 4676 projections like this one have been acquired over a rotation of \unit{180}{\degree}.]{%
 			\label{fig:s3}%
 			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 				% place image (integer coordinates refer to pixel centers):
 				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
   					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-s3}};
-				\draw[|-|,thick,color=white] (0,450) -- (512,450) node[midway,above] {\unit{1.4}{\milli\meter}};
+				\draw[|-|,thick,color=white] (256-64,450) -- (512-64,450) node[midway,above] {\unit{700}{\micro\meter}};
 				\end{tikzpicture}%
-			}%\
-		\renewcommand{\imsize}{.69\linewidth}
+			}\
+		\renewcommand{\imsize}{.48\linewidth}
 		\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
 		\pgfmathsetlength{\imagescale}{\imagewidth/1498} % pixel width of image
 		\subfloat[Merged and corrected image from the three subscans shown above. The merged projections have a size of 2994$\times$1024 pixels at a resolution of \unit{1.4}{\micro\meter\per pixel}. The Subscans s$_1$--s$_3$ overlap each other by approximately 150 pixels, thus the width of the merged projection is smaller than three times the width of the subscans. The projectcions of the subscans above have been merged into 4676 projections images like the one shown here and were then reconstructed into a tomographic dataset using a filtered backprojection reconstruction algorithm.]{%
@@ -250,9 +257,11 @@ The consequence of these constraints is, that the scanning time increases sevenf
 				% place image (integer coordinates refer to pixel centers):
 				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
   					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-merge}};
-				\draw[|-|,thick,color=white] (1240-64,450) -- (1498-64,450) node[midway,above] {\unit{700}{\micro\meter}};
+				\draw[|-|,thick,color=white] (1242-64,450) -- (1498-64,450) node[midway,above] {\unit{700}{\micro\meter}};
 			\end{tikzpicture}%
 			}\\
+		\renewcommand{\imsize}{\linewidth}
+		\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
 		\pgfmathsetlength{\imagescale}{\imagewidth/1365} % pixel width of image (image has been resized from 2994*1123, so that scalebar is at the same height without calculating too much...)
 		\subfloat[Cropped part of one slice of the tomographic dataset reconstructed from the merged projections, where one is shown in subfigure~\subref{fig:merge-proj}. The halo directly around the lung tissue arises from the paraffin where the sample is embedded in. The bright circular shape inscribed in the square arises from the filtered backprojection, the chosen reconstruction method. The size of the cropped image is 2994$\times$1123 pixels. The inset on the upper left corner shows an overview over the full slice with a size of 2994$\times$2994 pixels.]{%
 			\label{fig:merge-rec}%
@@ -269,14 +278,8 @@ The consequence of these constraints is, that the scanning time increases sevenf
 			}\\
 	\caption{Wide Field Scan Results for a rat lung sample 10 days after birth, showing the distal-medial edge of the right lower lung lobe.}
 	\label{fig:wide field scan results}
-	\todo[inline]{is the scalebar correct? $\rightarrow$ 10$\times$ lens, 2$\times$2 binning $\rightarrow$ 1024px with \unit{1.4}{\milli\meter} FOV.}
+	%\todo[inline]{is the scalebar correct? $\rightarrow$ 10$\times$ lens, 2$\times$2 binning $\rightarrow$ 1024px with \unit{1.4}{\milli\meter} FOV (=image width).}
 \end{figure}
-
-\section{Outlook}
-\begin{itemize}
-	\item Skelettierung, Segmente anzeichnen, damit Statistik gemacht werden kann
-	\item Wide Field scanning perfektionieren, Implementierung an der Beamline
-\end{itemize}
 
 \section{Publications}
 \label{sec:publications}
@@ -288,6 +291,12 @@ The preliminary results of my skeletonization method have been presented at a ta
 
 The wide field scanning method has been thoroughly described in my master thesis of the MAS in Medical Physics~\cite{Haberthuer2008c} and presented in front of the other master students~\cite{Haberthuer2008d}. Currently, I am in the process of writing a publication since additional experiments to prove the simulations and predictions have been carried out and showed the feasibility of the wide field scanning method.
 
+\section{Outlook}
+My experiments have shown that the wide field scanning method is ready to be implemented at the TOMCAT beamline. My MATLAB-scripts will be converted to faster routines programmed in \C++ by the beamline staff. There are still experiments needed to assess the long-term (in terms of hours) stability of the beamline setup, regarding the  reproducibility of the sample positioning, but this will be carried out by the beamline staff during in house development.
+
+My skeletonization workflow still need some refinement. One of the main field I will work on in the next months is the coloring of different segments of the airway tree. Up to now we have a correct airway segment where we can manually detect the branching properties and generations of the tree. It would be desirable if we have an automatic mean of describing the mathematical properties of the tree like segment number, branching angles and Horsfield numbers~\cite{Horsfield1976}. This data is already present in the skeleton data which can be exported from MeVisLab. I am now working on the extraction and visualization of this data. This would then permit us to extract statistical information about the branching pattern of the acinar airway tree in different mice and rat strains and thus enable us to study differences in lung development on a quantitative level.
+
 \bibliographystyle{unsrtnat}
 \bibliography{../../references}
+
 \end{document}
