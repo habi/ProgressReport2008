@@ -1,11 +1,10 @@
 \documentclass[]{scrartcl}
-%\usepackage[paper=A4,pagesize]{typearea}
 
 \newif\ifhtml
 
 % HTML generation (.doc-conversion) > set html to true and use htlatex. else set html to false
 \htmltrue
-\htmlfalse
+%\htmlfalse
 
 \ifhtml % In case of web format output...
 	\def\pgfsysdriver{pgfsys-tex4ht.def}
@@ -35,7 +34,7 @@
 	\usepackage{color}
 	\newindex{todo}{todo}{tnd}{Todo List} 
 	\newcommand{\todo}[1]{\textcolor{red}{[To do: #1]}\index[todo]{#1}}
-	\usepackage{url}
+	\usepackage{hyperref}
 \else
 	\usepackage{lmodern}
 	\usepackage{lineno}
@@ -75,7 +74,7 @@
 %\fancyhead[LE]{{\footnotesize\leftmark}}
 %\fancyfoot[LE]{\thepage}
 %%svn-info in footer, page in header
-\fancyfoot[C]{\tiny{this document (\url{\svnkw{HeadURL}}) was last saved on \svnkw{LastChangedDate} by \svnkw{LastChangedBy} and in now on revision \svnkw{LastChangedRevision}}}
+\fancyfoot[C]{\tiny{this document (\url{\svnkw{HeadURL}}) was last saved on \svnkw{LastChangedDate} by \svnkw{LastChangedBy} and in now on revision \svnkw{LastChangedRevision}.}}
 \fancyhead[C]{page \thepage}
 
 %\pagestyle{headings}
@@ -123,7 +122,9 @@ During the past summer I had the possibility to conduct the thesis of my Master 
 \section{SRXTM}
 During three regularly allotted beam times we obtained tomographic datasets of 67~samples while performing 151~scans in total. The difference between the amount of scanned samples and total scans arises through the use of a novel imaging method, which uses multiple partial scans to obtain tomographic images of one sample and is described later on in section~\ref{sec:wide field scanning}. During the term of my master thesis I additionally perform 17~scans during the so called ``in house development'' time at the beamline to proof the simulated predictions made during the development of the wide field scanning method.
 
-Most of the samples recorded were obtained from lung samples from Sprague Dawley rats\todo{details and citation needed! Or do we just cite~\citet{Schittny2008}}. During the third beamtime in 2008 we also obtained tomographic scans of mice bones \todo{citation needed, explain Göttingens goals, ask Johannes} (tibia, femur and vertebrae) to asses the trabecular structure of these bones. This particular experiment has been performed as part of a collaboration with the University of Göttingen, Germany. 
+Most of the samples recorded were obtained from lung samples from Sprague Dawley rats %\todo{details and citation needed! Or do we just cite~\citet{Schittny2008}}
+. During the third beamtime in 2008 we also obtained tomographic scans of mice bones %\todo{citation needed, explain Göttingens goals, ask Johannes}
+(tibia, femur and vertebrae) to asses the trabecular structure of these bones. This particular experiment has been performed as part of a collaboration with the University of Göttingen, Germany. 
 
 %08a - 42 samples, 1 ruler
 %08b - 10 samples: wide field scanning (38 scans (4*5, 6*3))
@@ -181,17 +182,17 @@ For mammalian airways, the underlying structure is topologically congruent to a 
 %%%%
 
 \begin{figure}
-	\centering
-		\subfloat[Segment]{\label{fig:segment}\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-		% place image (integer coordinates refer to pixel centers):
-		\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
-  		{\includegraphics[width=\imagewidth]{img/skeleton/segment-crop0041}};
-		\draw[|-|,thick] (25,550) -- (175,550) node[midway,above] {\unit{300}{\micro\meter}};
-		\end{tikzpicture}}
-		\subfloat[Overlay of \subref{fig:segment} and \subref{fig:skeleton}]{\label{fig:overlay}\includegraphics[width=\imsize]{img/skeleton/overlay-crop0041}}
-		\subfloat[Skeleton]{\label{fig:skeleton}\includegraphics[width=\imsize]{img/skeleton/skel-crop0041}}
+%	\centering
+%		\subfloat[Segment]{\label{fig:segment}\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+%		% place image (integer coordinates refer to pixel centers):
+%		\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+%  		{\includegraphics[width=\imagewidth]{img/skeleton/segment-crop0041}};
+%		\draw[|-|,thick] (25,550) -- (175,550) node[midway,above] {\unit{300}{\micro\meter}};
+%		\end{tikzpicture}}
+%		\subfloat[Overlay of \subref{fig:segment} and \subref{fig:skeleton}]{\label{fig:overlay}\includegraphics[width=\imsize]{img/skeleton/overlay-crop0041}}
+%		\subfloat[Skeleton]{\label{fig:skeleton}\includegraphics[width=\imsize]{img/skeleton/skel-crop0041}}
 	\caption{Results of the skeletonization of the airways of a partial acinus from a Sprague Dawley rat four days after birth. An segmented acinus located at the tip of a scanned lung sample, directly underneath the pleura has been extracted from the tomographic dataset. A part of this segment has been used for the extraction of the skeleton, this part is shown in~\subref{fig:segment}. Panel \subref{fig:overlay} shows the skeleton inside the half transparent airway segment. The skeleton of the acinar airways is shown in red in panel~\subref{fig:skeleton}.}
-	\todo[inline]{Draw correct scalebar! -> MeVisLab}
+	%\todo[inline]{Draw correct scalebar! -> MeVisLab}
 	\label{fig:skeletonization}
 \end{figure}
 
@@ -230,57 +231,57 @@ The consequence of these constraints is, that the scanning time increases sevenf
 The wide field scanning method has been developed in close collaboration with the TOMCAT group not only for the needs of our group, but also for the implementation at the beamline for other users, so that samples with dimensions bigger than the camera window can be fully recorded. It has been implemented at the beamline for our needs, namely for the imaging of nearly full rat lung lobes where we want to extract the acinar airway skeleton as described in section~\ref{sec:skeletonization}. The full implementation at the beamline for all end-users is planned in spring 2009 after more tests and calibration scans have been carried out.
 
 \begin{figure}
-%	\renewcommand{\imsize}{.328\linewidth}
-	\renewcommand{\imsize}{.16\linewidth}
-	\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
-	\pgfmathsetlength{\imagescale}{\imagewidth/512} % pixel width of image
-	\centering
-		\subfloat[Uncorrected projection image from subscan s$_1$ with a size of 1024$\times$1024 pixels at a resolution of \unit{1.4}{\micro\meter\per pixel}. 4676 projections like this one have been acquired over a rotation of \unit{180}{\degree}.]{%
-			\label{fig:s1}%
-			\includegraphics[width=\imsize]{img/merge/R108C10B-s1}%
-			}\
-		\subfloat[Uncorrected projection image from subscan s$_2$. 1169 projections like this one have been acquired over a rotation of \unit{180}{\degree}.]{%
-			\label{fig:s2}%
-			\includegraphics[width=\imsize]{img/merge/R108C10B-s2}%
-			}\
-		\subfloat[Uncorrected projection image from subscan s$_3$. 4676 projections like this one have been acquired over a rotation of \unit{180}{\degree}.]{%
-			\label{fig:s3}%
-			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-				% place image (integer coordinates refer to pixel centers):
-				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
-  					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-s3}};
-				\draw[|-|,thick,color=white] (256-64,450) -- (512-64,450) node[midway,above] {\unit{700}{\micro\meter}};
-				\end{tikzpicture}%
-			}\
+%%	\renewcommand{\imsize}{.328\linewidth}
+%	\renewcommand{\imsize}{.16\linewidth}
+%	\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
+%	\pgfmathsetlength{\imagescale}{\imagewidth/512} % pixel width of image
+%	\centering
+%		\subfloat[Uncorrected projection image from subscan s$_1$ with a size of 1024$\times$1024 pixels at a resolution of \unit{1.4}{\micro\meter\per pixel}. 4676 projections like this one have been acquired over a rotation of \unit{180}{\degree}.]{%
+%			\label{fig:s1}%
+%			\includegraphics[width=\imsize]{img/merge/R108C10B-s1}%
+%			}\
+%		\subfloat[Uncorrected projection image from subscan s$_2$. 1169 projections like this one have been acquired over a rotation of \unit{180}{\degree}.]{%
+%			\label{fig:s2}%
+%			\includegraphics[width=\imsize]{img/merge/R108C10B-s2}%
+%			}\
+%		\subfloat[Uncorrected projection image from subscan s$_3$. 4676 projections like this one have been acquired over a rotation of \unit{180}{\degree}.]{%
+%			\label{fig:s3}%
+%			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+%				% place image (integer coordinates refer to pixel centers):
+%				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+%  					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-s3}};
+%				\draw[|-|,thick,color=white] (256-64,450) -- (512-64,450) node[midway,above] {\unit{700}{\micro\meter}};
+%				\end{tikzpicture}%
+%			}\
+%%		\renewcommand{\imsize}{\linewidth}
+%		\renewcommand{\imsize}{.47\linewidth}
+%		\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
+%		\pgfmathsetlength{\imagescale}{\imagewidth/1498} % pixel width of image
+%		\subfloat[Merged and corrected image from the three subscans shown above. The merged projections have a size of 2994$\times$1024 pixels at a resolution of \unit{1.4}{\micro\meter\per pixel}. The Subscans s$_1$--s$_3$ overlap each other by approximately 150 pixels, thus the width of the merged projection is smaller than three times the width of the subscans. The projectcions of the subscans above have been merged into 4676 projections images like the one shown here and were then reconstructed into a tomographic dataset using a filtered backprojection reconstruction algorithm.]{%
+%			\label{fig:merge-proj}%
+%			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+%				% place image (integer coordinates refer to pixel centers):
+%				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+%  					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-merge}};
+%				\draw[|-|,thick,color=white] (1242-64,450) -- (1498-64,450) node[midway,above] {\unit{700}{\micro\meter}};
+%			\end{tikzpicture}%
+%			}\\
 %		\renewcommand{\imsize}{\linewidth}
-		\renewcommand{\imsize}{.47\linewidth}
-		\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
-		\pgfmathsetlength{\imagescale}{\imagewidth/1498} % pixel width of image
-		\subfloat[Merged and corrected image from the three subscans shown above. The merged projections have a size of 2994$\times$1024 pixels at a resolution of \unit{1.4}{\micro\meter\per pixel}. The Subscans s$_1$--s$_3$ overlap each other by approximately 150 pixels, thus the width of the merged projection is smaller than three times the width of the subscans. The projectcions of the subscans above have been merged into 4676 projections images like the one shown here and were then reconstructed into a tomographic dataset using a filtered backprojection reconstruction algorithm.]{%
-			\label{fig:merge-proj}%
-			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-				% place image (integer coordinates refer to pixel centers):
-				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
-  					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-merge}};
-				\draw[|-|,thick,color=white] (1242-64,450) -- (1498-64,450) node[midway,above] {\unit{700}{\micro\meter}};
-			\end{tikzpicture}%
-			}\\
-		\renewcommand{\imsize}{\linewidth}
-		\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
-		\pgfmathsetlength{\imagescale}{\imagewidth/1365} % pixel width of image (image has been resized from 2994*1123, so that scalebar is at the same height without calculating too much...)
-		\subfloat[Cropped part of one slice of the tomographic dataset reconstructed from the merged projections, where one is shown in subfigure~\subref{fig:merge-proj}. The halo directly around the lung tissue arises from the paraffin where the sample is embedded in. The bright circular shape inscribed in the square arises from the filtered backprojection, the chosen reconstruction method. The size of the cropped image is 2994$\times$1123 pixels. The inset on the upper left corner shows an overview over the full slice with a size of 2994$\times$2994 pixels.]{%
-			\label{fig:merge-rec}%
-			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-				% place image (integer coordinates refer to pixel centers):
-				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
-  					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-merge1016-crop}};
-  				\newcommand{\size}{.2\imagewidth}
-  				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
-  					{\includegraphics[width=\size]{img/merge/R108C10B-merge1016}};
-  				\draw[white] (\size,0) -- (\size,-\size) -- (0,-\size);
-				\draw[|-|,thick,color=white] (1109-64,450) -- (1365-64,450) node[midway,above] {\unit{700}{\micro\meter}};
-			\end{tikzpicture}%
-			}\\
+%		\pgfmathsetlength{\imagewidth}{\imsize} % desired displayed width of image
+%		\pgfmathsetlength{\imagescale}{\imagewidth/1365} % pixel width of image (image has been resized from 2994*1123, so that scalebar is at the same height without calculating too much...)
+%		\subfloat[Cropped part of one slice of the tomographic dataset reconstructed from the merged projections, where one is shown in subfigure~\subref{fig:merge-proj}. The halo directly around the lung tissue arises from the paraffin where the sample is embedded in. The bright circular shape inscribed in the square arises from the filtered backprojection, the chosen reconstruction method. The size of the cropped image is 2994$\times$1123 pixels. The inset on the upper left corner shows an overview over the full slice with a size of 2994$\times$2994 pixels.]{%
+%			\label{fig:merge-rec}%
+%			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+%				% place image (integer coordinates refer to pixel centers):
+%				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+%  					{\includegraphics[width=\imagewidth]{img/merge/R108C10B-merge1016-crop}};
+%  				\newcommand{\size}{.2\imagewidth}
+%  				\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
+%  					{\includegraphics[width=\size]{img/merge/R108C10B-merge1016}};
+%  				\draw[white] (\size,0) -- (\size,-\size) -- (0,-\size);
+%				\draw[|-|,thick,color=white] (1109-64,450) -- (1365-64,450) node[midway,above] {\unit{700}{\micro\meter}};
+%			\end{tikzpicture}%
+%			}\\
 	\caption{Wide Field Scan Results for a rat lung sample 10 days after birth, showing the distal-medial edge of the right lower lung lobe.}
 	\label{fig:wide field scan results}
 	%\todo[inline]{is the scalebar correct? $\rightarrow$ 10$\times$ lens, 2$\times$2 binning $\rightarrow$ 1024px with \unit{1.4}{\milli\meter} FOV (=image width).}
