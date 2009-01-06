@@ -25,9 +25,9 @@
 \usepackage[numbers,square,sort&compress]{natbib} % nice bibliography
 \usepackage{caption}
 \usepackage{relsize} 			% for nice C++ (from http://tinyurl.com/5hllnf)
-\usepackage{setspace}
+%\usepackage{setspace}
 %	\doublespacing
-	\onehalfspacing
+%	\onehalfspacing
 %	\singlespacing
 
 \ifhtml
@@ -38,20 +38,19 @@
 	\usepackage{hyperref}
 \else
 	\usepackage{lmodern}
-	\usepackage{lineno}
+	%\usepackage{lineno}
 	% line numbers
-	\linenumbers
+	%\linenumbers
 	%%\pagewiselinenumbers
-	\modulolinenumbers[2]
-	\usepackage[backref,pdftex]{hyperref}			% backref generates link from references back to text
+	%\modulolinenumbers[2]
+	\usepackage[backref]{hyperref}			% backref generates link from references back to text
 	\usepackage{todonotes}
-	\hypersetup{colorlinks=false,%
+	\hypersetup{%
 			pdfauthor={David Haberthür},%
 			pdftitle={Progress Report for the Graduate School for Cellular and Biomedical Sciences - 2008},%
 			pdfsubject={Progress Report},%
 			pdfkeywords={skeletonization, tomography, biomedical imaging, SRXTM},%
-			%pdfborder={0 0 0},% > no border around links, needs the line below to really make sense
-			%colorlinks=true % colored links instead of colorfully framed links.
+			colorlinks=true % colored links instead of colorfully framed links.
 			}
 \fi
 
@@ -65,8 +64,8 @@
 
 \pagestyle{fancy}
 %%%
-\cfoot{}
-\rfoot{}
+%\cfoot{}
+%\rfoot{}
 %%%
 %\fancyhead{}
 %\fancyfoot{}
@@ -75,8 +74,8 @@
 %\fancyhead[LE]{{\footnotesize\leftmark}}
 %\fancyfoot[LE]{\thepage}
 %%svn-info in footer, page in header
-\fancyfoot[C]{\tiny{this document (\url{\svnkw{HeadURL}}) was last saved on \svnkw{LastChangedDate} by \svnkw{LastChangedBy} and is now on revision \svnkw{LastChangedRevision}.}}
-\fancyhead[C]{page \thepage}
+%\fancyfoot[C]{\tiny{this document (\url{\svnkw{HeadURL}}) was last saved on \svnkw{LastChangedDate} by \svnkw{LastChangedBy} and is now on revision \svnkw{LastChangedRevision}.}}
+%\fancyhead[C]{page \thepage}
 
 %\pagestyle{headings}
 %\pagestyle{plain}
@@ -97,7 +96,7 @@
 
 \title{Progress Report for the Graduate School for Cellular and Biomedical Sciences - 2008}
 \author{David Haberthür}
-\date{Version of \today}
+\date{January 6, 2009}
 
 \begin{document}
 
@@ -106,7 +105,7 @@
 \ifhtml
 	\emph{Did you sort out all to dos?}
 \else
-	\listoftodos
+	%\listoftodos
 \fi
 
 %\tableofcontents
@@ -121,11 +120,9 @@ In addition to this, I have worked on the extraction of the airway structure ---
 During the past summer I had the possibility to conduct the thesis of my Master of Advanced Studies ETH in Medical Physics directly involved with the development of a new scanning protocol, working for two full months at the TOMCAT beamline at the PSI, while being integrated in the group we otherwise closely collaborate. The developed method is planned to be implemented for end-user access at the beamline early in 2009. This so called wide field scanning method is described in section~\ref{sec:wide field scanning}.
 
 \section{SRXTM}
-During three regularly allotted beam times we obtained tomographic datasets of 67~samples while performing 151~scans in total. The difference between the amount of scanned samples and total scans arises through the use of a novel imaging method, which uses multiple partial scans to obtain tomographic images of one sample and is described later on in section~\ref{sec:wide field scanning}. During the term of my master thesis I additionally performed 17~scans (each with three of five subscans) during the so called ``in house development'' time at the beamline to proof the simulated predictions made during the development of the wide field scanning method.
+During three regularly allotted beam times we obtained tomographic datasets of 67~samples while performing 151~scans in total. The difference between the amount of scanned samples and total scans arises through the use of a novel imaging method, which uses multiple partial scans to obtain tomographic images of one sample and is described later on in section~\ref{sec:wide field scanning}. During the term of my master thesis I additionally performed 17~scans --- each with three or five subscans --- during the so called ``in house development'' time at the beamline to proof the simulated predictions made during the development of the wide field scanning method.
 
-Most of the samples recorded were obtained from lung samples from Sprague Dawley rats \todo{details and citation needed! Or do we just cite~\citet{Schittny2008}}
-. During the third beamtime in 2008 we also obtained tomographic scans of mice bones \todo{citation needed, explain Göttingens goals, ask Johannes}
-(tibia, femur and vertebrae) to asses the trabecular structure of these bones. This particular experiment has been performed as part of a collaboration with the University of Göttingen, Germany. 
+Most of the samples recorded were obtained from lung samples from Sprague Dawley rats (see~\cite{Schittny2008} for details on the animals and sample preparation). During the third beamtime in 2008 we also obtained tomographic scans of mice bones (tibia, femur and vertebrae) to asses the trabecular structure of these bones. This particular experiment has been performed as part of a collaboration with the University of Göttingen, Germany, which has an ongoing program where skeletal morphology of rodents is studied~ \cite{Dullin2007,Missbach-Guentner2007}. 
 
 %08a - 42 samples, 1 ruler
 %08b - 10 samples: wide field scanning (38 scans (4*5, 6*3))
@@ -140,7 +137,7 @@ Even if my intentions to build up a multimodal toolchain for the imaging of lung
 
 With conventional TEM imaging we cannot obtain unrestricted three dimensional information from the scanned samples. The sample has to be cut into serial sections, which essentially destroys the three dimensional information. With carefully controlled experimentation methods we have been able to match real TEM slices with virtual slices from the SRXTM dataset. This enabled us to use the ultrahigh resolution TEM images for the characterization of sub-micron particles deposited in the mammalian lung and to localize these single and clustered gold particles in alveoli, alveolar ducts and small bronchioli using the fully unrestricted three dimensional dataset obtained with SRXTM.
 
-We have been able to show the excellent agreement between those two imaging modalities and have submitted the results to the Journal of Physics (see~\cite{Haberthuer2009}, enclosed to this document).
+We have been able to show the excellent agreement between the two imaging modalities and have submitted the results to the Journal of Physics (see~\cite{Haberthuer2009}, enclosed to this document).
 
 \section{Skeletonization}
 \label{sec:skeletonization}
@@ -210,8 +207,7 @@ The FOV in the direction of the rotation axis of the sample can easily be enlarg
 \label{sec:wfs-details}
 Increasing the FOV in horizontal direction of the sample is not a similarly easy task, since the obtained projection images have to be merged together to one big projection prior to be able to reconstruct the tomographic dataset of the sample. A schematic drawing of such a wide field scan is shown in figure~\ref{fig:wide field scan setup}. Projection images of the central part of the sample are recorded, then the sample is moved laterally towards the side and projection images of the outer parts of the sample are obtained. All these projection images are subsecuently stitched to projection images covering the full FOV.
 
-To be able to reconstruct the virtual tomographic slices throughout the full sample diameter which is larger than the camera window, we need to obtain more projection images at the outer parts of the sample than at the inner parts of the sample. We thus cannot simply merge together the projection images, but have to merge e.\ g.\ 6144 \todo{6144 is probably simpler to explain in this confined scope, also according to fig.~\ref{fig:wide field scan setup}\ldots...}
-projections from the outer scan with 1024 projections from the inner scan to a total of 3072 merged projections. To fulfill the sampling theorem, we have to obtain $N$ projection images for a sample of the width of $N$ pixels for a \unit{180}{\degree} scan. For this example we have scanned the outer parts of the sample in the \unit{360}{\degree}-mode, thus have obtained $1024*3$ projections over two times \unit{180}{\degree}, thus in total 6144 projections. All projections from the inner part and the outer ring are then stitched and merged to 3072 projections over \unit{180}{\degree}.
+To be able to reconstruct the virtual tomographic slices throughout the full sample diameter which is larger than the camera window, we need to obtain more projection images at the outer parts of the sample than at the inner parts of the sample. We thus cannot simply merge together the projection images, but have to merge e.\ g.\ 6144 projections from the outer scan with 1024 projections from the inner scan to a total of 3072 merged projections. To fulfill the sampling theorem, we have to obtain $N$ projection images for a sample of the width of $N$ pixels for a \unit{180}{\degree} scan. For this example we have scanned the outer parts of the sample in the \unit{360}{\degree}-mode, thus have obtained $1024*3$ projections over two times \unit{180}{\degree}, thus in total 6144 projections. All projections from the inner part and the outer ring are then stitched and merged to 3072 projections over \unit{180}{\degree}.
 
 \begin{figure}
 	\centering
