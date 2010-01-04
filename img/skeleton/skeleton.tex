@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx,tikz}
-\usepackage{SIunits}
+\usepackage{siunitx}
 \usepackage[graphics,tightpage,active]{preview}
 \PreviewEnvironment{tikzpicture}
 \newlength\imagewidth
@@ -20,7 +20,7 @@
   {\includegraphics[width=\imagewidth]{segment-crop0041}};
 
 %\draw (100,500) node ;
-\draw[|-|,thick] (25,500) -- (175,500) node[midway,above] {\unit{300}{\micro\meter}};
+\draw[|-|,thick] (25,500) -- (175,500) node[midway,above] {\SI{300}{\micro\meter}};
 \end{tikzpicture}
 
 \end{document}
